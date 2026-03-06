@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mascota encontrada</title>
+
+<style>
+
+body{
+font-family:Arial, Helvetica, sans-serif;
+background:#f2f4f8;
+margin:0;
+padding:30px;
+text-align:center;
+}
+
+.card{
+background:white;
+max-width:420px;
+margin:auto;
+padding:30px;
+border-radius:16px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+img{
+width:160px;
+height:160px;
+object-fit:cover;
+border-radius:50%;
+margin-bottom:15px;
+border:4px solid #eee;
+}
+
+h1{
+margin:10px 0;
+font-size:28px;
+}
+
+.info{
+font-size:18px;
+margin:6px 0;
+}
+
+.warning{
+margin-top:15px;
+font-weight:bold;
+color:#d9534f;
+}
+
+.btn{
+display:inline-block;
+margin-top:20px;
+padding:14px 25px;
+font-size:18px;
+background:#28a745;
+color:white;
+text-decoration:none;
+border-radius:10px;
+}
+
+.footer{
+margin-top:15px;
+font-size:14px;
+color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<img id="foto">
+
+<h1 id="nombre"></h1>
+
+<div class="info" id="raza"></div>
+<div class="info" id="edad"></div>
+
+<div class="warning">
+Si encontraste esta mascota por favor contacta al dueño
+</div>
+
+<a id="telefono" class="btn">📞 Llamar al dueño</a>
+
+<div class="footer">
+Identificación NFC para mascotas
+</div>
+
+</div>
+
+
+<script>
+
+const mascotas = {
+
+1:{
+nombre:"Aquiles",
+raza:"Pastor alemán negro sólido",
+edad:"5 años",
+telefono:"3316002192",
+foto:"Aquiles.jpeg"
+},
+
+2:{
+nombre:"Ares",
+raza:"Pastor Belga Tervueren",
+edad:"5 años",
+telefono:"3316002192",
+foto:"Ares.jpeg"
+}
+
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+const mascota = mascotas[id];
+
+if(mascota){
+
+document.getElementById("nombre").innerText = mascota.nombre;
+document.getElementById("raza").innerText = "Raza: " + mascota.raza;
+document.getElementById("edad").innerText = "Edad: " + mascota.edad;
+document.getElementById("foto").src = mascota.foto;
+document.getElementById("telefono").href = "tel:" + mascota.telefono;
+
+}else{
+
+document.querySelector(".card").innerHTML = "<h2>Mascota no registrada</h2>";
+
+}
+
+</script>
+
+</body>
+</html>
