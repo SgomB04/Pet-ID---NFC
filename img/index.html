@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Pet ID</title>
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#f5f5f5;
+padding:40px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:15px;
+max-width:400px;
+margin:auto;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+img{
+width:200px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.btn{
+display:inline-block;
+padding:12px 20px;
+border-radius:8px;
+background:#2ecc71;
+color:white;
+font-size:16px;
+text-decoration:none;
+}
+
+.error{
+color:red;
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+<img id="foto" src="img/default.jpg">
+
+<h2 id="nombre"></h2>
+
+<p id="raza"></p>
+<p id="edad"></p>
+
+<a id="telefono" class="btn">📞 Llamar al dueño</a>
+
+</div>
+
+<script>
+
+const mascotas = {
+
+"KUV5UC83":{
+nombre:"Aquiles",
+raza:"Pastor alemán negro sólido",
+edad:"5 años",
+telefono:"MzMxNjAwMjE5Mg==",
+foto:"img/Aquiles.jpeg"
+},
+
+"FG57FB5F":{
+nombre:"Ares",
+raza:"Pastor Belga Tervueren",
+edad:"5 años",
+telefono:"MzMxNjAwMjE5Mg==",
+foto:"img/Ares.jpeg"
+},
+
+"KU9RGU6Q":{
+nombre:"Blacky",
+raza:"Criolla",
+edad:"3 años",
+telefono:"MzkzMTA0MjY0Ng==",
+foto:"img/blacky.jpeg"
+}
+
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id")?.toUpperCase().trim();
+
+if(!id || !mascotas[id]){
+
+document.getElementById("card").innerHTML =
+"<p class='error'>⚠️ Mascota no encontrada</p>";
+
+}else{
+
+const mascota = mascotas[id];
+
+// Decodificar teléfono
+const telefono = atob(mascota.telefono);
+
+// Asignar datos
+document.getElementById("nombre").innerText = mascota.nombre;
+document.getElementById("raza").innerText = "Raza: " + mascota.raza;
+document.getElementById("edad").innerText = "Edad: " + mascota.edad;
+
+// Imagen con fallback
+document.getElementById("foto").src = mascota.foto || "img/default.jpg";
+
+// Botón llamada
+document.getElementById("telefono").href = "tel:" + telefono;
+
+}
+
+</script>
+
+</body>
+</html>
